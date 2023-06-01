@@ -1,0 +1,616 @@
+{
+	"name": "test",
+	"tables": [
+		{
+			"name": "customer",
+			"fields": [
+				{
+					"name": "id",
+					"type": "Integer",
+					"size": 4,
+					"scale": 0,
+					"auto_increment": true,
+					"default": null,
+					"required": true
+				},
+				{
+					"name": "name",
+					"type": "String",
+					"size": 100,
+					"scale": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": true
+				},
+				{
+					"name": "email",
+					"type": "String",
+					"size": 100,
+					"scale": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": false
+				},
+				{
+					"name": "enabled",
+					"type": "Integer",
+					"size": 1,
+					"scale": 0,
+					"auto_increment": false,
+					"default": "1",
+					"required": true
+				}
+			],
+			"pk": {
+				"name": "PRIMARY",
+				"fields": [
+					"id"
+				],
+				"key_type": "PrimaryKey",
+				"referenced_table": "customer"
+			},
+			"keys": [
+				{
+					"name": "customer_name_IDX",
+					"fields": [
+						"name"
+					],
+					"key_type": "Index",
+					"referenced_table": "customer"
+				}
+			],
+			"custom_queries": []
+		},
+		{
+			"name": "order",
+			"fields": [
+				{
+					"name": "id",
+					"type": "Integer",
+					"size": 4,
+					"scale": 0,
+					"auto_increment": true,
+					"default": null,
+					"required": true
+				},
+				{
+					"name": "customerid",
+					"type": "Integer",
+					"size": 4,
+					"scale": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": true
+				},
+				{
+					"name": "createdate",
+					"type": "Datetime",
+					"size": 0,
+					"scale": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": true
+				},
+				{
+					"name": "orderstatusid",
+					"type": "Integer",
+					"size": 4,
+					"scale": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": true
+				},
+				{
+					"name": "totalprice",
+					"type": "Decimal",
+					"size": 10,
+					"scale": 0,
+					"auto_increment": false,
+					"default": "0",
+					"required": true
+				}
+			],
+			"pk": {
+				"name": "PRIMARY",
+				"fields": [
+					"id"
+				],
+				"key_type": "PrimaryKey",
+				"referenced_table": "order"
+			},
+			"keys": [
+				{
+					"name": "order_FK",
+					"fields": [
+						"orderstatusid"
+					],
+					"key_type": "ForeignKey",
+					"primary_table": "orderstatus",
+					"primary_fields": [
+						"id"
+					],
+					"referenced_table": "order"
+				},
+				{
+					"name": "order_FK_1",
+					"fields": [
+						"customerid"
+					],
+					"key_type": "ForeignKey",
+					"primary_table": "customer",
+					"primary_fields": [
+						"id"
+					],
+					"referenced_table": "order"
+				},
+				{
+					"name": "order_FK",
+					"fields": [
+						"orderstatusid"
+					],
+					"key_type": "Index",
+					"referenced_table": "order"
+				},
+				{
+					"name": "order_FK_1",
+					"fields": [
+						"customerid"
+					],
+					"key_type": "Index",
+					"referenced_table": "order"
+				}
+			],
+			"custom_queries": []
+		},
+		{
+			"name": "orderline",
+			"fields": [
+				{
+					"name": "id",
+					"type": "Integer",
+					"size": 4,
+					"scale": 0,
+					"auto_increment": true,
+					"default": null,
+					"required": true
+				},
+				{
+					"name": "orderid",
+					"type": "Integer",
+					"size": 4,
+					"scale": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": true
+				},
+				{
+					"name": "productid",
+					"type": "Integer",
+					"size": 4,
+					"scale": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": true
+				},
+				{
+					"name": "quantity",
+					"type": "Float",
+					"size": 4,
+					"scale": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": true
+				},
+				{
+					"name": "price",
+					"type": "Decimal",
+					"size": 10,
+					"scale": 0,
+					"auto_increment": false,
+					"default": "0",
+					"required": true
+				}
+			],
+			"pk": {
+				"name": "PRIMARY",
+				"fields": [
+					"id"
+				],
+				"key_type": "PrimaryKey",
+				"referenced_table": "orderline"
+			},
+			"keys": [
+				{
+					"name": "orderline_FK",
+					"fields": [
+						"orderid"
+					],
+					"key_type": "ForeignKey",
+					"primary_table": "order",
+					"primary_fields": [
+						"id"
+					],
+					"referenced_table": "orderline"
+				},
+				{
+					"name": "orderline_FK_1",
+					"fields": [
+						"productid"
+					],
+					"key_type": "ForeignKey",
+					"primary_table": "product",
+					"primary_fields": [
+						"id"
+					],
+					"referenced_table": "orderline"
+				},
+				{
+					"name": "orderline_FK",
+					"fields": [
+						"orderid"
+					],
+					"key_type": "Index",
+					"referenced_table": "orderline"
+				},
+				{
+					"name": "orderline_FK_1",
+					"fields": [
+						"productid"
+					],
+					"key_type": "Index",
+					"referenced_table": "orderline"
+				}
+			],
+			"custom_queries": []
+		},
+		{
+			"name": "orderstatus",
+			"fields": [
+				{
+					"name": "id",
+					"type": "Integer",
+					"size": 4,
+					"scale": 0,
+					"auto_increment": true,
+					"default": null,
+					"required": true
+				},
+				{
+					"name": "value",
+					"type": "String",
+					"size": 100,
+					"scale": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": true
+				}
+			],
+			"pk": {
+				"name": "PRIMARY",
+				"fields": [
+					"id"
+				],
+				"key_type": "PrimaryKey",
+				"referenced_table": "orderstatus"
+			},
+			"keys": [
+				{
+					"name": "orderstatus_UN",
+					"fields": [
+						"value"
+					],
+					"key_type": "Unique",
+					"referenced_table": "orderstatus"
+				}
+			],
+			"custom_queries": []
+		},
+		{
+			"name": "product",
+			"fields": [
+				{
+					"name": "id",
+					"type": "Integer",
+					"size": 4,
+					"scale": 0,
+					"auto_increment": true,
+					"default": null,
+					"required": true
+				},
+				{
+					"name": "name",
+					"type": "String",
+					"size": 100,
+					"scale": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": true
+				},
+				{
+					"name": "enabled",
+					"type": "Integer",
+					"size": 1,
+					"scale": 0,
+					"auto_increment": false,
+					"default": "1",
+					"required": true
+				},
+				{
+					"name": "price",
+					"type": "Decimal",
+					"size": 10,
+					"scale": 0,
+					"auto_increment": false,
+					"default": "0",
+					"required": true
+				}
+			],
+			"pk": {
+				"name": "PRIMARY",
+				"fields": [
+					"id"
+				],
+				"key_type": "PrimaryKey",
+				"referenced_table": "product"
+			},
+			"keys": [
+				{
+					"name": "product_UN",
+					"fields": [
+						"name"
+					],
+					"key_type": "Unique",
+					"referenced_table": "product"
+				}
+			],
+			"custom_queries": []
+		},
+		{
+			"name": "test_table",
+			"fields": [
+				{
+					"name": "id",
+					"type": "Integer",
+					"size": 4,
+					"scale": 0,
+					"auto_increment": true,
+					"default": null,
+					"required": true
+				},
+				{
+					"name": "string_field",
+					"type": "String",
+					"size": 50,
+					"scale": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": false
+				},
+				{
+					"name": "string_field2",
+					"type": "String",
+					"size": 60,
+					"scale": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": false
+				},
+				{
+					"name": "int_field",
+					"type": "Integer",
+					"size": 4,
+					"scale": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": false
+				},
+				{
+					"name": "float_field",
+					"type": "Float",
+					"size": 4,
+					"scale": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": false
+				},
+				{
+					"name": "bool_field",
+					"type": "Integer",
+					"size": 1,
+					"scale": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": false
+				},
+				{
+					"name": "datetime_field",
+					"type": "Datetime",
+					"size": 0,
+					"scale": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": false
+				}
+			],
+			"pk": {
+				"name": "PRIMARY",
+				"fields": [
+					"id"
+				],
+				"key_type": "PrimaryKey",
+				"referenced_table": "test_table"
+			},
+			"keys": [
+				{
+					"name": "string_field",
+					"fields": [
+						"string_field"
+					],
+					"key_type": "Unique",
+					"referenced_table": "test_table"
+				},
+				{
+					"name": "string_field2",
+					"fields": [
+						"string_field2"
+					],
+					"key_type": "Index",
+					"referenced_table": "test_table"
+				},
+				{
+					"name": "test_table_string_field_IDX",
+					"fields": [
+						"string_field",
+						"string_field2"
+					],
+					"key_type": "Index",
+					"referenced_table": "test_table"
+				}
+			],
+			"custom_queries": []
+		},
+		{
+			"name": "testprimary",
+			"fields": [
+				{
+					"name": "id",
+					"type": "Integer",
+					"size": 4,
+					"scale": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": true
+				},
+				{
+					"name": "otherid",
+					"type": "Integer",
+					"size": 4,
+					"scale": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": true
+				},
+				{
+					"name": "value",
+					"type": "String",
+					"size": 100,
+					"scale": 0,
+					"auto_increment": false,
+					"default": "missing",
+					"required": true
+				},
+				{
+					"name": "decimalcol",
+					"type": "Decimal",
+					"size": 20,
+					"scale": 2,
+					"auto_increment": false,
+					"default": "0.00",
+					"required": false
+				}
+			],
+			"pk": {
+				"name": "PRIMARY",
+				"fields": [
+					"id",
+					"otherid"
+				],
+				"key_type": "PrimaryKey",
+				"referenced_table": "testprimary"
+			},
+			"keys": [],
+			"custom_queries": []
+		},
+		{
+			"name": "testsecondary",
+			"fields": [
+				{
+					"name": "id",
+					"type": "Integer",
+					"size": 4,
+					"scale": 0,
+					"auto_increment": true,
+					"default": null,
+					"required": true
+				},
+				{
+					"name": "primid1",
+					"type": "Integer",
+					"size": 4,
+					"scale": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": true
+				},
+				{
+					"name": "primid2",
+					"type": "Integer",
+					"size": 4,
+					"scale": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": true
+				},
+				{
+					"name": "value",
+					"type": "String",
+					"size": 100,
+					"scale": 0,
+					"auto_increment": false,
+					"default": "",
+					"required": true
+				}
+			],
+			"pk": {
+				"name": "PRIMARY",
+				"fields": [
+					"id"
+				],
+				"key_type": "PrimaryKey",
+				"referenced_table": "testsecondary"
+			},
+			"keys": [
+				{
+					"name": "testsecondary_FK",
+					"fields": [
+						"primid1",
+						"primid2"
+					],
+					"key_type": "ForeignKey",
+					"primary_table": "testprimary",
+					"primary_fields": [
+						"id",
+						"otherid"
+					],
+					"referenced_table": "testsecondary"
+				},
+				{
+					"name": "testsecondary_FK",
+					"fields": [
+						"primid1",
+						"primid2"
+					],
+					"key_type": "Index",
+					"referenced_table": "testsecondary"
+				},
+				{
+					"name": "testsecondary_primid1_IDX",
+					"fields": [
+						"primid1"
+					],
+					"key_type": "Index",
+					"referenced_table": "testsecondary"
+				},
+				{
+					"name": "testsecondary_value_IDX",
+					"fields": [
+						"value"
+					],
+					"key_type": "Unique",
+					"referenced_table": "testsecondary"
+				}
+			],
+			"custom_queries": []
+		}
+	]
+}

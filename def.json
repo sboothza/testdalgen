@@ -1,0 +1,102 @@
+{
+	"name": "test",
+	"tables": [
+		{
+			"name": "test_table",
+			"fields": [
+				{
+					"name": "id",
+					"type": "Integer",
+					"size": 0,
+					"auto_increment": true,
+					"default": null,
+					"required": true
+				},
+				{
+					"name": "string_field",
+					"type": "String",
+					"size": 50,
+					"auto_increment": false,
+					"default": null,
+					"required": false
+				},
+				{
+					"name": "string_field2",
+					"type": "String",
+					"size": 60,
+					"auto_increment": false,
+					"default": null,
+					"required": false
+				},
+				{
+					"name": "int_field",
+					"type": "Integer",
+					"size": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": false
+				},
+				{
+					"name": "float_field",
+					"type": "Float",
+					"size": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": false
+				},
+				{
+					"name": "bool_field",
+					"type": "Boolean",
+					"size": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": false
+				},
+				{
+					"name": "datetime_field",
+					"type": "Datetime",
+					"size": 0,
+					"auto_increment": false,
+					"default": null,
+					"required": false
+				}				
+			],
+			"pk": {
+				"name": "pk_test_table",
+				"fields": [
+					"id"
+				],
+				"key_type": "primarykey"
+			},
+			"keys": [
+				{
+					"name": "ux_test_table_1",
+					"fields": [
+						"string_field"
+					],
+					"key_type": "unique"
+				},
+				{
+					"name": "ux_test_table_2",
+					"fields": [
+						"string_field2"
+					],
+					"key_type": "index"
+				}
+			],
+			"custom_queries": [
+				{
+					"name": "GetBefore",
+					"parameters": [{
+						"name":"effective",
+						"type":"Datetime"
+					}],
+					"return_type": "[__item__]",
+					"transform":"Map",
+					"query_type": "FetchAll",
+					"query": "select id, string_field, string_field2, int_field, float_field, bool_field, datetime_field from __table_name__ where datetime_field < ::effective::;"
+				}
+			]
+		}
+	]
+}
