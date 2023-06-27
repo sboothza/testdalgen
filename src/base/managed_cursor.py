@@ -40,9 +40,9 @@ class ManagedCursor(object):
     def description(self):
         return self.cursor.description
 
-    @property
-    def lastrowid(self):
-        return self.cursor.lastrowid
+    # @property
+    # def lastrowid(self):
+    #     return self.cursor.lastrowid
 
     @property
     def rowcount(self):

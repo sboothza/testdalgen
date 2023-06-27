@@ -20,8 +20,8 @@ class OrderLine(TableBase):
     ...
 
 
-class OrderStatus(TableBase):
-    ...
+# class OrderStatus(TableBase):
+#     ...
 
 
 class Product(TableBase):
@@ -196,37 +196,37 @@ class OrderLine(TableBase):
         return {"orderid": self.order_id, "productid": self.product_id, "quantity": self.quantity, "price": self.price,
                 "id": self.id}
 
-
-class OrderStatus(TableBase):
-    __table_name__ = "orderstatus"
-    __drop_script__ = "None"
-    __create_script__ = "create table \"orderstatus\" (\"id\" INTEGER ,\"value\" TEXT ,PRIMARY KEY (\"id\")); CREATE UNIQUE INDEX \"orderstatus_UN\" ON \"orderstatus\" (\"value\");"
-    __table_exists_script__ = "SELECT name FROM sqlite_schema WHERE type='table' and name = 'orderstatus'"
-    __table_count_script__ = "select count(*) from \"orderstatus\""
-    __insert_script__ = "insert into \"orderstatus\" (\"value\") values (:value);"
-    __update_script__ = "update \"orderstatus\" set \"value\" = :value where \"id\" = :id;"
-    __delete_script__ = "delete from \"orderstatus\" where \"id\" = :id;"
-    __fetch_by_id_script__ = "select \"id\", \"value\" from \"orderstatus\" where \"id\" = :id;"
-    __item_exists_script__ = "select count(*) from \"orderstatus\" where \"id\" = :id;"
-
-    id: int = 0
-    value: str = "None"
-
-    def __init__(self, id: int = 0, value: str = "None"):
-        self.id = id
-        self.value = value
-
-    def map_row(self, row) -> TableBase:
-        self.id = row[0]
-        self.value = row[1]
-        return self
-
-    def get_insert_params(self) -> {}:
-        return {"value": self.value}
-
-    def get_update_params(self) -> {}:
-        return {"value": self.value, "id": self.id}
-
+#
+# class OrderStatus(TableBase):
+#     __table_name__ = "orderstatus"
+#     __drop_script__ = "None"
+#     __create_script__ = "create table \"orderstatus\" (\"id\" INTEGER ,\"value\" TEXT ,PRIMARY KEY (\"id\")); CREATE UNIQUE INDEX \"orderstatus_UN\" ON \"orderstatus\" (\"value\");"
+#     __table_exists_script__ = "SELECT name FROM sqlite_schema WHERE type='table' and name = 'orderstatus'"
+#     __table_count_script__ = "select count(*) from \"orderstatus\""
+#     __insert_script__ = "insert into \"orderstatus\" (\"value\") values (:value);"
+#     __update_script__ = "update \"orderstatus\" set \"value\" = :value where \"id\" = :id;"
+#     __delete_script__ = "delete from \"orderstatus\" where \"id\" = :id;"
+#     __fetch_by_id_script__ = "select \"id\", \"value\" from \"orderstatus\" where \"id\" = :id;"
+#     __item_exists_script__ = "select count(*) from \"orderstatus\" where \"id\" = :id;"
+#
+#     id: int = 0
+#     value: str = "None"
+#
+#     def __init__(self, id: int = 0, value: str = "None"):
+#         self.id = id
+#         self.value = value
+#
+#     def map_row(self, row) -> TableBase:
+#         self.id = row[0]
+#         self.value = row[1]
+#         return self
+#
+#     def get_insert_params(self) -> {}:
+#         return {"value": self.value}
+#
+#     def get_update_params(self) -> {}:
+#         return {"value": self.value, "id": self.id}
+#
 
 class Product(TableBase):
     __table_name__ = "product"

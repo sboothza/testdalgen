@@ -1,6 +1,7 @@
 import re
 
-from src.base.connection_base import ConnectionBase, SqliteConnection, MySqlConnection
+from base.exceptions import DataException
+from src.base.connection_base import ConnectionBase, SqliteConnection, MySqlConnection, PgSqlConnection
 from src.base.managed_cursor import ManagedCursor
 
 
@@ -28,6 +29,9 @@ class Session(object):
         if params is None:
             params = {}
         self.connection.execute(query, params)
+
+    def execute_lastrowid(self, query: str, params=None):
+        return self.connection.execute_lastrowid(query, params)
 
     def fetch_scalar(self, query: str, params=None):
         if params is None:
@@ -78,6 +82,10 @@ class SessionFactory(object):
                 return SqliteConnection(connection_string)
             elif db_type == "mysql":
                 return MySqlConnection(connection_string)
+            elif db_type == "pgsql":
+                return PgSqlConnection(connection_string)
+            else:
+                raise DataException("invalid connection string")
 
     @staticmethod
     def connect(connection_string: str) -> Session:

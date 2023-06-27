@@ -1,5 +1,8 @@
 from datetime import datetime
 import time
+from typing import Union
+
+from base.session import Session
 
 
 class TableBase:
@@ -18,10 +21,8 @@ class TableBase:
     __fetch_by_id_script__ = ""
     __item_exists_script__ = ""
 
-    def map_row(self, row) -> TableBase:
-        pass
-
-    def get_id_params(self) -> {}:
+    @classmethod
+    def map_row(cls, row) -> TableBase:
         pass
 
     def get_insert_params(self) -> {}:
@@ -29,6 +30,22 @@ class TableBase:
 
     def get_update_params(self) -> {}:
         pass
+
+    @classmethod
+    def fetch_one(cls, session: Session, query: str, parameters=None) -> Union[TableBase, TableBase, None]:
+        if parameters is None:
+            parameters = {}
+        row = session.fetch_one(query, parameters)
+        if row:
+            return cls.map_row(row)
+        return None
+
+    @classmethod
+    def fetch(cls, session: Session, query: str, parameters=None):
+        if parameters is None:
+            parameters = {}
+        with session.fetch(query, parameters) as cursor:
+            return [cls.map_row(row) for row in cursor]
 
     @staticmethod
     def int_to_bool(value: int) -> bool:

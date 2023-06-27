@@ -1,4 +1,4 @@
-from src.base.config_base import ConfigBase
+from base.config_base import ConfigBase
 
 
 class Config(ConfigBase):
